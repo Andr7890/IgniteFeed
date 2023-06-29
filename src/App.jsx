@@ -9,7 +9,7 @@ export function App () {
   return(
     <div>
       <Header/>
-      <div classNames={styles.wrapper}>
+      <div className={styles.wrapper}>
 
         <aside>
           sidebar
