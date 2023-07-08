@@ -1,5 +1,6 @@
 import { Post } from "./Post";
 import { Header } from "./components/Header";
+import { Sidebar } from "./components/Sidebar";
 
 import styles from './App.module.css'
 
@@ -8,18 +9,18 @@ import './global.css';
 export function App () {
   return(
     <div>
-      <Header/>
+
+      <Header />
+      
       <div className={styles.wrapper}>
 
-        <aside>
-          sidebar
-        </aside>
+      <Sidebar />
 
         <main>
           
           <Post 
-            author='Paulo Lima' 
-            content='Peidos deveriam se chamar cocô aerosol, "peido" é muito informal. (vai tomar no cu CLT!)' 
+            author='Paulo Lima'
+            content='Peidos deveriam se chamar cocô aerosol, "peido" é muito informal. (vai tomar no cu CLT!)'
           />
 
           <Post 
