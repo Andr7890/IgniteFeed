@@ -1,32 +1,46 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
 
-export function Post() {
+export function Post({author, publishedAt, content}) {
+
+    const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm 'h", {
+       locale: ptBR,
+    } );
+
+    const publishedDateRelativeNow = formatDistanceToNow (publishedAt,{
+        locale: ptBR,
+        addSuffix: true,
+        })
+
     return (
         <article className={styles.post}>  
         
             <header>
                 <div className={styles.author}>
-                    <Avatar src="src\assets\paulo-profile-pic.jpg" alt="" />
+                    <Avatar src={author.avatarUrl} alt="" />
                     <div className={styles.authorInfo}>
-                        <strong> Paulo Lima </strong>
-                        <span> A Porra Toda </span>
+                        <strong> {author.name} </strong>
+                        <span> {author.role} </span>
                     </div>
                 </div>
 
-                <time title='09 de Julho de 2023 às 17:25h'> Publicado a um tempinho </time>
+                <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()} > {publishedDateRelativeNow} </time>
             </header>
 
             <div className={styles.content}>
 
-            <p>Peidos deveriam se chamar cocô aerosol, "peido" é muito informal.</p>
-               
-            <p>
-                <a href="https://www.youtube.com/watch?v=wko2BMFyVF8" target='blank'>#VaiTomarNoCuCLT!</a> {' '} 
-                <a href="https://www.youtube.com/watch?v=pu0Gh3uJcH8" target='blank'>#NeuroCiência</a>
-            </p> 
-            
+                 {content.map(line =>{
+                    if (line.type === 'paragraph'){
+                        return <p>{line.content}</p>;
+                    } else if (line.type === 'link'){
+                        return <p> <a href="#">{line.content}</a> </p>
+                    }
+                 })}
+
             </div>
 
             <form className={styles.commentForm}>
