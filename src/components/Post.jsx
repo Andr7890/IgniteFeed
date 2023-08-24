@@ -53,7 +53,7 @@ export function Post({author, publishedAt, content}) {
 
         const isNewCommentEmpty = newCommentText.length == 0;
 
-    return (
+        return (
         <article className={styles.post}>  
         
             <header>
